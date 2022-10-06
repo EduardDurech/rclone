@@ -92,9 +92,6 @@ func (s *Storage) _load() (err error) {
 		}
 		cfg := strings.Trim(stdout.String(), "\r\n")
 		fd = aws.ReadSeekCloser(strings.NewReader(cfg))
-		if fd == nil {
-			return fmt.Errorf("unable to convert config-command-in to ReadSeekCloser")
-		}
 	} else {
 		fd, err = os.Open(configPath)
 		if err != nil {
