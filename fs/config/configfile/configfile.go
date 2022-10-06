@@ -85,7 +85,7 @@ func (s *Storage) _load() (err error) {
 			if ers := strings.TrimSpace(stderr.String()); ers != "" {
 				fs.Errorf(nil, "--config-command-in stderr: %s", ers)
 			}
-			return fmt.Errorf("password command failed: %w", err)
+			return fmt.Errorf("config command in failed: %w", err)
 		}
 		cfg := strings.Trim(stdout.String(), "\r\n")
 		fd = aws.ReadSeekCloser(strings.NewReader(cfg))
