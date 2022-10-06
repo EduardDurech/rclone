@@ -68,9 +68,6 @@ func (s *Storage) _load() (err error) {
 	}()
 
 	configPath := config.GetConfigPath()
-	if configPath == "" {
-		return config.ErrorConfigFileNotFound
-	}
 
 	if len(ci.ConfigCommandIn) != 0 {
 		var stdout bytes.Buffer
@@ -93,6 +90,10 @@ func (s *Storage) _load() (err error) {
 		cfg := strings.Trim(stdout.String(), "\r\n")
 		fd = aws.ReadSeekCloser(strings.NewReader(cfg))
 	} else {
+		if configPath == "" {
+			return config.ErrorConfigFileNotFound
+		}
+
 		fd, err = os.Open(configPath)
 		if err != nil {
 			if os.IsNotExist(err) {
